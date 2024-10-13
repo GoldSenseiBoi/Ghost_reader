@@ -20,4 +20,10 @@ public class FileJson extends FileType {
     public void printPalindrome() {
         System.out.println("Printing file content in palindrome.");
     }
+
+    @Override
+    public boolean compareFiles(IfileReader otherFile) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'compareFiles'");
+    }
 }

@@ -3,7 +3,7 @@ package cours.exercice_reader;
 public class FileReader {
 
     public static void main(String[] args) {
-        FileTxt fileTxt = new FileTxt("example.txt");
+        FileTxt fileTxt = new FileTxt("fichier.txt");
         fileTxt.openFile();
         fileTxt.printContent();
         fileTxt.printReverse();
