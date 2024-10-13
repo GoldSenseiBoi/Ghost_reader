@@ -1,8 +1,10 @@
 package cours.exercice_reader;
 
+import java.io.IOException;
+
 public class FileReader {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FileTxt fileTxt = new FileTxt("fichier.txt");
         fileTxt.openFile();
         fileTxt.printContent();
