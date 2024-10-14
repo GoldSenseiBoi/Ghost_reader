@@ -1,49 +1,95 @@
-# 📁 Mini-projet : Lecteur de Fichiers
 
-Ce projet Java Maven a pour but de créer un lecteur de fichiers capable de lire, inverser et manipuler différents types de fichiers. Il utilise les concepts de programmation orientée objet tels que les interfaces, les classes abstraites, et l'héritage. Le projet est composé de plusieurs classes représentant différents types de fichiers comme `.txt`, `.csv`, et `.json`.
+# 👻 Ghost_reader - Ton lecteur de fichiers ultime ! 📂
 
-## 🛠️ Structure du Projet
+Bienvenue dans **Ghost_reader**, un projet qui te permet de lire plusieurs types de fichiers (📜 `.txt`, 📊 `.csv`, 🧮 `.json`) de manière très simple et intuitive. En plus, tu peux afficher le contenu de ces fichiers dans plusieurs formats sympas, comme à l'envers ou en palindrome. 🎉
 
-### 1. Interface `IFileReader`
-L'interface `IFileReader` définit les méthodes de base que chaque lecteur de fichier doit implémenter :
-- `📂 void openFile() : Ouvre le fichier spécifié.
-- `❌ void closeFile() : Ferme le fichier.
+## 🚀 Fonctionnalités principales :
 
-### 2. Classe Abstraite `FileType`
-La classe abstraite `FileType` implémente l'interface `IFileReader` et fournit une implémentation de base pour certaines méthodes communes à tous les types de fichiers.
-- Elle gère l'ouverture et la fermeture du fichier en utilisant la classe `BufferedReader`.
-- Elle contient des méthodes abstraites que chaque sous-classe doit implémenter.
+1. **Détection automatique du type de fichier** :
+   - Ghost_reader peut lire les fichiers `.txt`, `.csv` et `.json` en reconnaissant l'extension du fichier.
+   
+2. **Affichage du contenu** dans différents formats :
+   - 📜 **Contenu normal** : Affiche le fichier tel qu'il est.
+   - 🔄 **Contenu inversé** : Affiche les lignes du fichier en commençant par la dernière.
+   - 🔁 **Contenu palindrome** : Affiche chaque ligne avec les caractères inversés.
 
-### 3. Sous-classes pour Différents Types de Fichiers
-- **`📜 FileTxt`** : Représente un fichier texte `.txt`. Hérite de `FileType` et utilise les méthodes de la classe parent pour lire et manipuler le contenu.
-- **`📊 FileCSV`** : Représente un fichier CSV `.csv`. Hérite de `FileType` et implémente les méthodes pour lire le fichier CSV.
-- **`🗂️ FileJson`** : Représente un fichier JSON `.json`. Hérite de `FileType` et implémente les méthodes pour lire le fichier JSON.
+## 🔧 Comment ça marche ?
 
-### 4. Classe `FileReaderApp`
-La classe `FileReaderApp` contient la méthode `main` qui permet de tester les fonctionnalités des différentes sous-classes.
-- Elle crée des instances des différentes sous-classes (`FileTxt`, `FileCSV`, `FileJson`) et appelle les méthodes pour afficher le contenu, le contenu inversé, et le contenu palindrome.
+### 1. Installation 📥
+Pour utiliser **Ghost_reader**, tu as juste besoin d'une configuration Java fonctionnelle. Télécharge le projet et compile-le comme un projet Java classique.
 
-## 🚀 Fonctionnalités Implémentées
+```bash
+# Pour compiler :
+javac -d bin src/cours/exercice_reader/*.java
 
-### 1. 📖 Lecture de Fichier
-Chaque sous-classe permet de lire le contenu du fichier. Par exemple, `printContent()` affiche chaque ligne dans l'ordre original.
+# Pour exécuter :
+java -cp bin cours.exercice_reader.FileReader
+```
 
-### 2. 🔄 Affichage en Ordre Inversé
-La méthode `printReverse()` lit le fichier, stocke chaque ligne dans une liste, puis l'affiche dans l'ordre inverse.
+### 2. Utilisation 📚
 
-### 3. 🔁 Affichage Palindrome
-La méthode `printPalindrome()` prend chaque ligne du fichier et l'affiche en inversant les caractères, permettant ainsi de voir la version palindrome de chaque ligne.
+Le fichier **`FileReader.java`** est ton point d'entrée. Il détecte automatiquement le type de fichier que tu lui passes en fonction de l'extension et applique les bonnes méthodes.
 
-### 4. 📊 Comparaison de Fichiers
-La méthode `compareFiles(IFileReader otherFile)` est définie dans l'interface pour permettre de comparer le contenu de deux fichiers. Cependant, l'implémentation n'a pas été fournie dans ce projet, et peut être ajoutée selon les besoins spécifiques.
+#### Exemple d'utilisation :
+
+```java
+import java.io.File;
+import java.io.IOException;
+
+public class FileReader {
+    public static void main(String[] args) throws IOException {
+        // Exemple d'un fichier texte
+        File file = new File("chemin/vers/ton/fichier.txt");
+
+        try {
+            FileType fileType;
+
+            // On vérifie l'extension du fichier
+            String fileName = file.getName();
+            if (fileName.endsWith(".txt")) {
+                fileType = new FileTxt(file.getAbsolutePath()); // Fichier texte
+            } else if (fileName.endsWith(".csv")) {
+                fileType = new FileCSV(file.getAbsolutePath()); // Fichier CSV
+            } else if (fileName.endsWith(".json")) {
+                fileType = new FileJson(file.getAbsolutePath()); // Fichier JSON
+            } else {
+                System.out.println("Type de fichier non pris en charge.");
+                return;
+            }
+
+            // Utilisation des méthodes de lecture
+            System.out.println("Contenu normal:");
+            fileType.printContent(); // Affiche le contenu normal
+
+            System.out.println("\nContenu inversé:");
+            fileType.printReverse(); // Affiche le contenu à l'envers
+
+            System.out.println("\nContenu palindrome:");
+            fileType.printPalindrome(); // Affiche le contenu palindrome
+
+        } catch (IOException e) {
+            e.printStackTrace(); // Gère les erreurs si le fichier n'existe pas ou autre
+        }
+    }
+}
+```
 
 
-## 🌟 Améliorations Futures
-- **📊 Implémenter la Comparaison de Fichiers** : Ajouter une logique pour comparer deux fichiers ligne par ligne.
-- **🗃️ Gestion des Formats Spécifiques** : Ajouter une logique spécifique pour chaque type de fichier, comme le parsing de fichiers JSON ou CSV.
-- **💻 Interface Utilisateur** : Ajouter une interface utilisateur pour rendre l'application plus conviviale.
+### 3. Ajout de nouveaux types de fichiers 🎉
 
-## 📝 Conclusion
-Ce projet est un bon exemple d'utilisation des principes de programmation orientée objet pour créer une application modulaire et extensible. Chaque type de fichier est traité de manière spécifique tout en réutilisant les fonctionnalités communes grâce aux classes abstraites et aux interfaces.
+Tu veux ajouter un nouveau type de fichier ? Pas de souci ! Il suffit de créer une nouvelle classe qui hérite de `FileType` et d'implémenter les méthodes :
+- `printContent()`
+- `printReverse()`
+- `printPalindrome()`
 
-Si vous avez des questions ou des suggestions, n'hésitez pas à les partager ! 😊
+Ensuite, ajoute une condition pour ce type de fichier dans `FileReader.java`. Par exemple, si tu veux gérer les fichiers XML :
+
+```java
+if (fileName.endsWith(".xml")) {
+    fileType = new FileXML(file.getAbsolutePath()); // Fichier XML
+}
+```
+
+## 👨‍💻 Contributions
+
+Si tu veux contribuer au projet, n'hésite pas à faire un **pull request** ou à signaler des bugs. Toute aide est la bienvenue !
