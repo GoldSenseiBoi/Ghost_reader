@@ -90,6 +90,3 @@ if (fileName.endsWith(".xml")) {
 }
 ```
 
-## 👨‍💻 Contributions
-
-Si tu veux contribuer au projet, n'hésite pas à faire un **pull request** ou à signaler des bugs. Toute aide est la bienvenue !
